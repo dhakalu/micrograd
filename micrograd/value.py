@@ -16,7 +16,7 @@ class Value:
         self._backward = lambda: None  # Placeholder for backward function
 
     def __repr__(self):
-        return f"${self._label}|Value({self.data})|grad={self.grad}"
+        return f"Value({self.data})"
 
     def __add__(self, other):
         other = other if isinstance(other, Value) else Value(other)
@@ -71,7 +71,7 @@ class Value:
 
     def tanh(self):
         x = self.data
-        t = (math.exp(x**2) - 1)/(math.exp(x**2) + 1)
+        t = (math.exp(2*x) - 1)/(math.exp(2*x) + 1)
         out = Value(t, (self,), 'tanh')
 
         def _backward():
